@@ -1,12 +1,12 @@
 # Parallel Classics
-A set of classic algorithms, implemented both through serial and parallel programming, comparing results and purposing solutions. This project uses random numbers for calculating problems, to proof and to present the capabilities of parallel programming. MPI and CUDA is used for the implementations.
+A set of classic algorithms, implemented both through serial and parallel programming, comparing results and purposing solutions. This project uses random numbers for calculating problems, to proof and to present the capabilities of parallel programming. MPI and CUDA are used for the implementations.
 
 
 ## knn
-A knn implementation. We assume that the space is divided into boxes (cubes) that model neighborhoods. In every box there are randomly generated q or c type of points. For every q point we find the nearest c neighbor. In the project, there is a serial and a parallel implementation using [MPI](https://www.open-mpi.org/)
+A knn implementation. We assume that the space is divided into boxes (cubes) that model neighborhoods. In every box there are randomly generated q or c type of points. For every q point we need to find the nearest c neighbor. In the project, there is a serial and a parallel implementation using [MPI](https://www.open-mpi.org/).
 
 ### Serial Implementation
-The serial implementation divides the space into v boxes and creates Numq random q points and Numc random c points. The points, based on their position belong to some boxes. To find the nearest c point of each q point, the algorithm searches in the neighbor boxes and select the nearest c of this neighborhood. The Numc and the Numq parameter must be a power of two.
+The serial implementation divides the space into v boxes and creates Numq random q points and Numc random c points. The points, based on their position belong to some boxes. To find the nearest c point of each q point, the algorithm searches in the neighbor boxes and select the nearest c of this neighborhood. The Numc and the Numq parameters must be powers of two.
 
 ##### Compile
 - To compile the source code open a terminal in the same folder with "knn.c" and run:
@@ -27,8 +27,7 @@ The serial implementation divides the space into v boxes and creates Numq random
 
 
 ### Parallel Implementation
-The parallel implementation of the knn algorithm is based on the serial one. The implementation is working on several processes 
-
+The parallel implementation of the knn algorithm is based on the serial one. The implementation is working on several processes. Each process is responsible for a set of consecutive boxes based on its rank. Separate processes that are responsible for neighbor boxes, exchange the required messages to check for q-c distances. Each process calculates the nearest c neighbor for any q that belongs to its boxes, no matter if the c belongs to another process.
  
 ##### Compile
 - To compile the source code open a terminal in the same folder with "MPIknn.c" and run:

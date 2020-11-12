@@ -94,7 +94,7 @@ Before compiling CUDA code, install CUDA following the [NVIDIA instructions](htt
 Before running a CUDA executable, get sure that your GPU supports CUDA runtime environment [here](https://developer.nvidia.com/cuda-gpus).
 - To run the parallel Floyd-Warshall algorithm for a random graph of the desired size open a terminal in the same folder with the executable and run:
 
-```mpirun -n num_procs executable-file-name n w p```
+```./executable-file-name n w p```
 	
 	* executable-file-name = the name of the final executable
 	* n = the number of vertices into the graph

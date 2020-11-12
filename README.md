@@ -61,44 +61,43 @@ The serial implementation is based on a NxN array that stores the weight of the 
 
 
 ##### Compile
-- To compile the source code open a terminal in the same folder with "knn.c" and run:
+- To compile the source code open a terminal in the same folder with "Apsp.c" and run:
 
-```$ gcc -std=gnu89 knn.c -o executable-file-name -lm```
+```$ gcc -std=gnu89 Apsp.c -o executable-file-name -lm```
 
 	*executable-file-name = the name of the final executable
 
 ##### Run
-- To run the knn algorithm for a random set of points of the desired amount open a terminal in the same folder with the executable and run:
+- To run the Floyd-Warshall algorithm for a random graph of the desired size open a terminal in the same folder with the executable and run:
 
-```./executable-file-name Nq Nc v```
+```./executable-file-name n w p```
 	
 	* executable-file-name = the name of the final executable
-	* Nq = the superscript of 2 for the number of q points as: Numq = 2^Nq
-	* Nc = the superscript of 2 for the number of c points as: Numc = 2^Nc
-	* v = the superscript of 2 for the number of boxes to divide the space as: boxes = 2^v
+	* n = the number of vertices into the graph
+	* w = the max weight between vertices
+	* p = the probability of generating edge
 
 
 ### Parallel Implementation
-The parallel implementation of the knn algorithm is based on the serial one. The implementation is working on several processes. Each process is responsible for a set of consecutive boxes based on its rank. Separate processes that are responsible for neighbor boxes, exchange the required messages to check for q-c distances. Each process calculates the nearest c neighbor for any q that belongs to its boxes, no matter if the c belongs to another process.
+The parallel implementation of the Floyd-Warshall algorithm is based on the serial one. The implementation is working with CUDA. The implementation starts NxN CUDA threds where every thread is responsible for a single cell of the Floyd-Warshall distance array. The CUDA threads are divided into blocks. The number of blocks is variable but the total number of threads in always NxN. The stable version includes only implementation without any shared memory. The shared memory implementation will be attached on a later commit.
  
 ##### Compile
-- To compile the source code open a terminal in the same folder with "MPIknn.c" and run:
+- To compile the source code open a terminal in the same folder with "CUDAapsp.cu" and run:
 
-```$ mpicc -std=gnu89 MPIknn.c -o executable-file-name -lm```
+```$ nvcc -std=gnu89 CUDAapsp.cu -o executable-file-name -lm```
 
 	*executable-file-name = the name of the final executable
 
 ##### Run
-- To run the knn algorithm for a random set of points of the desired amount open a terminal in the same folder with the executable and run:
+- To run the parallel Floyd-Warshall algorithm for a random graph of the desired size open a terminal in the same folder with the executable and run:
 
-```mpirun -n num_procs executable-file-name Nq Nc v```
+```mpirun -n num_procs executable-file-name n w p```
 	
 	* executable-file-name = the name of the final executable
-	* num_procs = number of MPI tasks to use
-	* Nq = the superscript of 2 for the number of q points as: Numq = 2^Nq
-	* Nc = the superscript of 2 for the number of c points as: Numc = 2^Nc
-	* v = the superscript of 2 for the number of boxes to divide the space as: boxes = 2^v
+	* n = the number of vertices into the graph
+	* w = the max weight between vertices
+	* p = the probability of generating edge
 
 
 ### Results
-In the "results" folder you can find multiple runtimes of the parallel implementation. For a complete comparison the results present the runtimes of 2, 4 and 32 MPI task, for several amount of points (Numq and Numc). The runtimes present the total time until finding all the nearest neighbors, as long as the time for saving the points before the calculations. All the timing presented in the text files is counted in seconds.
+In the "results" folder you can find runtimes of the parallel implementation. For a complete comparison the results present the runtimes of 2, 4 and 32 MPI task, for several amount of points (Numq and Numc). The runtimes present the total time until finding all the nearest neighbors, as long as the time for saving the points before the calculations. All the timing presented in the text files is counted in seconds.

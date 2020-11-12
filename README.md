@@ -1,4 +1,5 @@
 
+
 # Parallel Classics
 A set of algorithms requiring strong computational power, implemented both through serial and parallel programming, comparing results, tools, techniques and purposing solutions. This project uses random numbers for calculating problems, to proof and to present the capabilities of parallel programming. [MPI](https://www.open-mpi.org/) and [CUDA](https://developer.nvidia.com/cuda-zone) are used for the implementations.
 
@@ -82,6 +83,7 @@ The serial implementation is based on a NxN array that stores the weight of the 
 The parallel implementation of the Floyd-Warshall algorithm is based on the serial one. The implementation is working with CUDA. The implementation starts NxN CUDA threds where every thread is responsible for a single cell of the described distance array. The CUDA threads are divided into blocks. The number of blocks is a variable but the total number of threads is always NxN. The stable version includes only implementation without any shared memory in the GPU. The shared memory implementation will be attached on a later commit.
  
 ##### Compile
+Before compiling CUDA code, install CUDA following the [NVIDIA instructions](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
 - To compile the source code open a terminal in the same folder with "CUDAapsp.cu" and run:
 
 ```$ nvcc -std=gnu89 CUDAapsp.cu -o executable-file-name -lm```
@@ -89,6 +91,7 @@ The parallel implementation of the Floyd-Warshall algorithm is based on the seri
 	*executable-file-name = the name of the final executable
 
 ##### Run
+Before running a CUDA executable, get sure that your GPU supports CUDA runtime environment [here](https://developer.nvidia.com/cuda-gpus).
 - To run the parallel Floyd-Warshall algorithm for a random graph of the desired size open a terminal in the same folder with the executable and run:
 
 ```mpirun -n num_procs executable-file-name n w p```

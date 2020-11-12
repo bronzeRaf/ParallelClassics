@@ -36,7 +36,8 @@
 ------- ---------------------- 
    Brouzos Rafael 	rnm1816@gmail.com	www.github.com/bronzeRaf
 -----------------------------
-*/#include <stdio.h>
+*/
+#include <stdio.h>
 #include <cuda.h>
 #include <stdlib.h>
 #include <sys/time.h>
@@ -212,7 +213,9 @@ void oneOneNo(){
   cudaFree(dev_dist);
 }
 
-//kernel function for 1thread per cell without shared memory
+/**
+Kernel Function for executing 1 cell per thread without shared memory (host function)
+**/
 __global__ void floydWarshall_p1(float *dev_dist,size_t pitch,int en){
   float temp, d1, d2, *row;
   int k;

@@ -11,7 +11,7 @@ The serial implementation divides the space into v boxes and creates Numq random
 ##### Compile
 - To compile the source code open a terminal in the same folder with "knn.c" and run:
 
-```$ gcc knn.c -o executable-file-name```
+```$ gcc -std=gnu89 knn.c -o executable-file-name -lm```
 
 	*executable-file-name = the name of the final executable
 
@@ -32,14 +32,14 @@ The parallel implementation of the knn algorithm is based on the serial one. The
 ##### Compile
 - To compile the source code open a terminal in the same folder with "MPIknn.c" and run:
 
-```$ mpicc MPIknn.c -o executable-file-name```
+```$ mpicc -std=gnu89 MPIknn.c -o executable-file-name -lm```
 
 	*executable-file-name = the name of the final executable
 
 ##### Run
 - To run the knn algorithm for a random set of points of the desired amount open a terminal in the same folder with the executable and run:
 
-```./mpirun -n num_procs executable-file-name Nq Nc v```
+```mpirun -n num_procs executable-file-name Nq Nc v```
 	
 	* executable-file-name = the name of the final executable
 	* num_procs = number of MPI tasks to use

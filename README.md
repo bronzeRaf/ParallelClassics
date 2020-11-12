@@ -5,7 +5,7 @@ A set of algorithms requiring strong computational power, implemented both throu
 
 
 ## knn
-A serial and a parallel knn-like problem solving implementation. We assume that the space is divided into boxes (cubes) that model neighborhoods. In every box there are randomly generated q or c type of points. For every q point we need to find the nearest c neighbor. In the project, there is a serial and a parallel implementation using C and [MPI](https://www.open-mpi.org/).
+A serial and a parallel knn-like problem solving implementation. We assume that the space is divided into boxes (cubes) that model neighborhoods. In every box there are randomly generated q or c type of points. For every q point we need to find the nearest c neighbor. In the project, there is a serial and a parallel implementation using C and [MPI](https://www.open-mpi.org/). Both implementations contain validating functions, to proof that the results are correct.
 
 ### Serial Implementation
 The serial implementation divides the space into v boxes and creates Numq random q points and Numc random c points. Every point, based on its position belong to a box. To find the nearest c point of each q point, the algorithm searches in the neighbor boxes and select the nearest c of this neighborhood. The Numc and the Numq and the number of boxes must be powers of two. The number of points and the number of boxes could be selected by the user.
@@ -55,7 +55,7 @@ In the "results" folder you can find multiple runtimes of the parallel implement
 
 
 ## Floyd-Warshall
-This is a set of a serial and a parallel implementation of the Floyd-Warshall algorithm. Floyd-Warshall is an algorithm for finding shortest paths in a weighted graph with positive or negative edge weights (without negative cycles). A single execution of the algorithm can find the lengths (summed weights) of shortest paths between all pairs of vertices. Although it does not return details of the paths themselves, it is possible to reconstruct the paths with simple modifications to the algorithm.
+This is a set of a serial and a parallel implementation of the Floyd-Warshall algorithm. Floyd-Warshall is an algorithm for finding shortest paths in a weighted graph with positive or negative edge weights (without negative cycles). A single execution of the algorithm can find the lengths (summed weights) of shortest paths between all pairs of vertices. Although it does not return details of the paths themselves, it is possible to reconstruct the paths with simple modifications to the algorithm. Both implementations contain validating functions, to proof that the results are correct.
 
 ### Serial Implementation
 The serial implementation is based on a NxN array that stores the weight of the edge from vertex i (row index) to vertex j (column index) and on a distance array that contains the shortest paths the same way. The random graph generation is based on the MATLAB function "makeAdjacency.m" that is given too. The number of vertices is decided by the user and then the graph is generated randomly. The missing edges between vertices are implemented as weights above the weight limit w. Therefore, the Floyd-Warshall algorithm is applied into the graph.
@@ -80,7 +80,7 @@ The serial implementation is based on a NxN array that stores the weight of the 
 
 
 ### Parallel Implementation
-The parallel implementation of the Floyd-Warshall algorithm is based on the serial one. The implementation is working with CUDA. The implementation starts NxN CUDA threds where every thread is responsible for a single cell of the described distance array. The CUDA threads are divided into blocks. The number of blocks is a variable but the total number of threads is always NxN. The stable version includes only implementation without any shared memory in the GPU. The shared memory implementation will be attached on a later commit.
+The parallel implementation of the Floyd-Warshall algorithm is based on the serial one. The implementation is working with CUDA. The implementation starts NxN CUDA threds where every thread is responsible for a single cell of the described distance array. The CUDA threads are divided into blocks. The number of blocks is a variable but the total number of threads is always NxN. The CUDA version includes only implementation using the GPU global memory, without any shared memory usage.
  
 ##### Compile
 Before compiling CUDA code, install CUDA following the [NVIDIA instructions](https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html).
